@@ -47,7 +47,7 @@ const Home: NextPage = () => {
       <Header />
       <div className="mx-auto mt-24 flex max-w-6xl flex-col">
         <h2 className="scroll-m-20 border-b border-b-slate-200 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 dark:border-b-slate-700">
-          My Projects
+          Hello from dev branch
         </h2>
         <div className="mt-8 flex">
           {projects?.map((project) => (
