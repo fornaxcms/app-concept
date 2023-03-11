@@ -9,17 +9,9 @@ import { authOptions } from "@acme/auth";
 
 import { api } from "~/utils/api";
 import { Header } from "~/components/Header";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "../ui/AlertDialog";
+import { CreateProjectModal } from "~/modules/dashboard/CreateProjectModal";
+import { Input } from "~/ui/Input";
+import { Textarea } from "~/ui/Textarea";
 import { Button } from "../ui/Button";
 
 const Home: NextPage = () => {
@@ -46,13 +38,21 @@ const Home: NextPage = () => {
       </Head>
       <Header />
       <div className="mx-auto mt-24 flex max-w-6xl flex-col">
-        <h2 className="scroll-m-20 border-b border-b-slate-200 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 dark:border-b-slate-700">
-          Hello from dev branch
-        </h2>
-        <div className="mt-8 flex">
+        <div className="flex items-center justify-between">
+          <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+            My Projects
+          </h2>
+          <CreateProjectModal />
+        </div>
+        <div className="mt-4 border-b border-b-slate-200 dark:border-b-slate-700"></div>
+        <div className="mt-8 grid grid-cols-3 gap-4">
           {projects?.map((project) => (
-            <Link href={`/project/${project.id}`} key={project.id}>
-              <div className="rounded-lg bg-slate-300 px-8 py-4 transition-transform ease-in hover:-translate-y-1">
+            <Link
+              href={`/project/${project.id}`}
+              key={project.id}
+              className="rounded-lg bg-slate-300 px-8 py-4 transition-transform ease-in hover:-translate-y-1"
+            >
+              <div className="">
                 <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
                   {project.name}
                 </h4>
