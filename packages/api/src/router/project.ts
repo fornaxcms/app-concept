@@ -16,7 +16,17 @@ export const projectRouter = createTRPCRouter({
       z.object({ name: z.string().min(1), description: z.string().min(1) }),
     )
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.project.create({ data: input });
+      return ctx.prisma.project.create({
+        data: {
+          name: input.name,
+          description: input.description,
+          users: {
+            connect: {
+              id: ctx.session.user.id,
+            },
+          },
+        },
+      });
     }),
 
   delete: protectedProcedure.input(z.string()).mutation(({ ctx, input }) => {
@@ -28,9 +38,12 @@ export const projectRouter = createTRPCRouter({
       where: {
         users: {
           some: {
-            userId: ctx.session.user.id,
+            id: ctx.session.user.id,
           },
         },
+      },
+      include: {
+        users: true,
       },
     });
   }),
