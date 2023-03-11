@@ -10,20 +10,11 @@ import { authOptions } from "@acme/auth";
 import { api } from "~/utils/api";
 import { Header } from "~/components/Header";
 import { CreateProjectModal } from "~/modules/dashboard/CreateProjectModal";
-import { Input } from "~/ui/Input";
-import { Textarea } from "~/ui/Textarea";
-import { Button } from "../ui/Button";
 
 const Home: NextPage = () => {
   const router = useRouter();
   const { status } = useSession();
-  const { data: session } = api.auth.getSession.useQuery();
   const { data: projects } = api.project.getProjectsFromUser.useQuery();
-
-  const { data: secretMessage } = api.auth.getSecretMessage.useQuery(
-    undefined, // no input
-    { enabled: !!session?.user },
-  );
 
   if (status === "unauthenticated") {
     router.push("/api/auth/signin");
@@ -57,6 +48,12 @@ const Home: NextPage = () => {
                   {project.name}
                 </h4>
                 <p className="text-sm leading-7">{project.description}</p>
+                <div className="mt-4">
+                  <span>
+                    {project.users.length} Member
+                    {project.users.length > 1 ? "s" : ""}
+                  </span>
+                </div>
               </div>
             </Link>
           ))}
