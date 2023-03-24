@@ -1,14 +1,42 @@
 {
   "name": "@acme/graphql",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node dist/index.js",
+    "start-dev": "dotenv -e .env.development node dist/index.js",
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "build": "tsc",
+    "build-w": "tsc -w"
+  },
   "devDependencies": {
+    "@types/body-parser": "^1.19.2",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/dotenv-safe": "^8.1.2",
+    "@types/express": "^4.17.17",
+    "@types/lodash": "^4.14.191",
+    "@types/node": "^18.15.7",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1",
+    "tsc-watch": "^6.0.0",
     "typescript": "^5.0.2"
   },
   "dependencies": {
+    "apollo-server": "^3.12.0",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "dotenv-cli": "^7.1.0",
+    "dotenv-safe": "^8.2.0",
+    "express": "^4.18.2",
     "graphql": "^16.6.0",
     "graphql-compose": "^9.0.10",
-    "graphql-tag": "^2.12.6"
+    "graphql-tag": "^2.12.6",
+    "http": "^0.0.1-security",
+    "lodash": "^4.17.21",
+    "tslib": "^2.5.0"
   }
 }
