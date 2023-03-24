@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 
 import { api } from "~/utils/api";
 import { AppLayout } from "~/layouts/AppLayout";
@@ -9,11 +9,6 @@ const ProjectDashboard = () => {
   const router = useRouter();
   const id: string = router.query.id as string;
   const { data: project } = api.project.byId.useQuery(id);
-  const { status } = useSession();
-
-  if (status === "unauthenticated") {
-    router.push("/api/auth/signin");
-  }
 
   return (
     <AppLayout>
@@ -30,3 +25,19 @@ const ProjectDashboard = () => {
 };
 
 export default ProjectDashboard;
+
+export async function getServerSideProps(context: any) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}

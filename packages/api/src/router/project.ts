@@ -47,4 +47,34 @@ export const projectRouter = createTRPCRouter({
       },
     });
   }),
+
+  getCollectionsInProject: protectedProcedure
+    .input(z.string())
+    .query(({ ctx, input }) => {
+      return ctx.prisma.collection.findMany({
+        where: {
+          projectId: input,
+        },
+      });
+    }),
+
+  getPagesInProject: protectedProcedure
+    .input(z.string())
+    .query(({ ctx, input }) => {
+      return ctx.prisma.page.findMany({
+        where: {
+          projectId: input,
+        },
+      });
+    }),
+
+  getMenusInProject: protectedProcedure
+    .input(z.string())
+    .query(({ ctx, input }) => {
+      return ctx.prisma.menu.findMany({
+        where: {
+          projectId: input,
+        },
+      });
+    }),
 });

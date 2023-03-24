@@ -4,7 +4,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
 import { getServerSession } from "next-auth";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { getSession, signIn, signOut, useSession } from "next-auth/react";
 import { authOptions } from "@acme/auth";
 
 import { api } from "~/utils/api";
@@ -13,12 +13,7 @@ import { CreateProjectModal } from "~/modules/dashboard/CreateProjectModal";
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const { status } = useSession();
   const { data: projects } = api.project.getProjectsFromUser.useQuery();
-
-  if (status === "unauthenticated") {
-    router.push("/api/auth/signin");
-  }
 
   return (
     <>
@@ -64,3 +59,19 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export async function getServerSideProps(context: any) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}

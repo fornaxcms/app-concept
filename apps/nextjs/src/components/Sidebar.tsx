@@ -48,6 +48,11 @@ export const Sidebar: React.FC<SidebarPropsI> = ({ project }) => {
                 <li>
                   <Link href={`/project/${project?.id}/schemas`}>Schemas</Link>
                 </li>
+                <li>
+                  <Link href={`/project/${project?.id}/graphql`}>
+                    API Playground
+                  </Link>
+                </li>
               </div>
             </ul>
           </div>

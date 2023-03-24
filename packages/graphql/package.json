@@ -1,0 +1,14 @@
+{
+  "name": "@acme/graphql",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "graphql": "^16.6.0",
+    "graphql-compose": "^9.0.10",
+    "graphql-tag": "^2.12.6"
+  }
+}
