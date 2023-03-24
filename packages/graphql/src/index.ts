@@ -7,8 +7,9 @@ import { ApolloServer } from "apollo-server-express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
+import { prisma } from "@acme/db";
 
-import { schema } from "./generateSchema";
+import { projectSchemaHandler } from "./projectSchemaHandler";
 
 const main = async () => {
   const PORT = 4000;
@@ -33,7 +34,7 @@ const main = async () => {
   //   app.use("/:projectId/graphql");
 
   const server = new ApolloServer({
-    schema: schema,
+    schema: await projectSchemaHandler(),
     csrfPrevention: true,
     plugins: [
       ApolloServerPluginLandingPageGraphQLPlayground(),
